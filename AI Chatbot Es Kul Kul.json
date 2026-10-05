@@ -1,0 +1,115 @@
+{
+  "name": "AI Chatbot Es Kul Kul",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "61ce345c-b8eb-40d2-9851-4490d1d97670",
+      "name": "When chat message received",
+      "webhookId": "a2ec3799-c3bd-42ca-b7e5-e84f45424d1f"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Kamu adalah asisten virtual ramah untuk toko Es Kul Kul. Tugasmu adalah menjawab pertanyaan pelanggan mengenai varian buah (pisang, melon, semangka, stroberi), harga per porsi, topping (meses, kacang, keju), jam buka, dan membantu proses pemesanan. Jawablah secara singkat, ramah, dan jelas",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "5f3053bc-2210-4f0e-a9f8-eb3feafad419",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "d052ffad-3b42-47b8-b356-330687ade62e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        208
+      ],
+      "id": "79617a9a-823f-4448-b78c-4ac099a67ed3",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "27d1b645-5143-4f7f-99bb-a87dc05eadca",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "906031916e5d8488d3e66c6f071ab33dac1e29ac881325c57f0c96b8bfe9f614"
+  },
+  "nodeGroups": [],
+  "id": "go6ZnCUDJsLKHtek",
+  "tags": []
+}
