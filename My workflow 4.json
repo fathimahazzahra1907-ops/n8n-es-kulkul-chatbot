@@ -1,0 +1,159 @@
+{
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4caa37d1-2a6e-475e-80a2-daeb6aa8147d",
+      "name": "When chat message received",
+      "webhookId": "7a448845-3678-4e4e-826c-3433ab54ffa1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Kamu adalah asisten toko yang ramah. Tugasmu membantu menjawab pertanyaan pelanggan mengenai daftar produk dan harga. Selalu gunakan Tool Google Sheets untuk mencari data produk dan harga terbaru sebelum menjawab",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "1634adfd-ebb8-44e3-a199-16ad5cf8858d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        192
+      ],
+      "id": "335374ae-4150-4e10-a073-6d46d3768232",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        320,
+        320
+      ],
+      "id": "e90eaabc-f804-41d6-a6dd-6f8a66dc4f01",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1VvRLYTGt6u2Eo5Lppgf6cK7b-9k_xdKj2PjcqGLwv0U",
+          "mode": "list",
+          "cachedResultName": "Salinan dari n8n 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VvRLYTGt6u2Eo5Lppgf6cK7b-9k_xdKj2PjcqGLwv0U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VvRLYTGt6u2Eo5Lppgf6cK7b-9k_xdKj2PjcqGLwv0U/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        496,
+        160
+      ],
+      "id": "9ab21ab3-93de-4980-ab3d-de709289ea26",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3W5H9iffkU1ORHYn",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3cbc8270-9970-4141-9204-5744f6cebe0f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "906031916e5d8488d3e66c6f071ab33dac1e29ac881325c57f0c96b8bfe9f614"
+  },
+  "nodeGroups": [],
+  "id": "qSxYBKJVJPQWQ7mh",
+  "tags": []
+}
